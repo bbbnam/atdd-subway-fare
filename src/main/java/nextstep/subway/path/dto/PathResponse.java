@@ -10,21 +10,23 @@ public class PathResponse {
     private int distance;
     private int duration;
     private int fare;
+    private Long arrivalTime;
 
     public PathResponse() {
     }
 
-    public PathResponse(List<StationResponse> stations, int distance, int duration, int fare) {
+    public PathResponse(List<StationResponse> stations, int distance, int duration, int fare, Long arrivalTime) {
         this.stations = stations;
         this.distance = distance;
         this.duration = duration;
         this.fare = fare;
+        this.arrivalTime = arrivalTime;
     }
 
-    public static PathResponse of(PathResult pathResult, int fare) {
+    public static PathResponse of(PathResult pathResult, int fare, Long arrivalTime) {
         int distance = pathResult.getTotalDistance();
         int duration = pathResult.getTotalDuration();
-        return new PathResponse(StationResponse.listOf(pathResult.getStations()), distance, duration, fare);
+        return new PathResponse(StationResponse.listOf(pathResult.getStations()), distance, duration, fare, arrivalTime);
     }
 
     public List<StationResponse> getStations() {
@@ -41,5 +43,9 @@ public class PathResponse {
 
     public int getFare() {
         return fare;
+    }
+
+    public Long getArrivalTime() {
+        return arrivalTime;
     }
 }

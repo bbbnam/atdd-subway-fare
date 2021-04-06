@@ -20,7 +20,8 @@ public class PathController {
 
     @GetMapping("/paths")
     public ResponseEntity<PathResponse> findPath(@RequestParam Long source, @RequestParam Long target,
-                                                 @RequestParam PathType type, @AuthenticationPrincipal(required = false) LoginMember loginMember) {
+                                                 @RequestParam PathType type, @AuthenticationPrincipal(required = false) LoginMember loginMember,
+                                                 @RequestParam(required = false) Long time) {
         return ResponseEntity.ok(pathService.findPath(source, target, type, loginMember));
     }
 }

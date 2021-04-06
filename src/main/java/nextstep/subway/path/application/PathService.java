@@ -34,8 +34,8 @@ public class PathService {
         Fare fare = new Fare();
         Policies policies = initPolicies(loginMember, pathResult);
         int calculatedFare = policies.calculate(fare.getFareValue());
-
-        return PathResponse.of(pathResult, calculatedFare);
+        Long arrivalTime = 202104061830L;
+        return PathResponse.of(pathResult, calculatedFare, arrivalTime);
     }
 
     private Policies initPolicies(LoginMember loginMember, PathResult pathResult) {
