@@ -43,6 +43,11 @@ public class PathSteps {
         return getPaths(given, token, source, target, "DURATION");
     }
 
+    public static ExtractableResponse<Response> 도착시간이_가장_빠른_경로_조회를_요청(RequestSpecification given, TokenResponse token, Long source, Long target,
+                                                                Long time) {
+        return getPathsWithTime(given, source, target, "ARRIVAL_TIME", time);
+    }
+
     private static ExtractableResponse<Response> getPaths(RequestSpecification given, TokenResponse token, Long source, Long target, String distance) {
         return given
                 .auth().oauth2(token.getAccessToken())
@@ -64,6 +69,17 @@ public class PathSteps {
                 .then().log().all().extract();
     }
 
+    private static ExtractableResponse<Response> getPathsWithTime(RequestSpecification given, Long source, Long target, String arrival_time, Long time) {
+        return given
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .queryParam("source", source)
+                .queryParam("target", target)
+                .queryParam("type", arrival_time)
+                .queryParam("time", time)
+                .when().get("/paths")
+                .then().log().all().extract();
+    }
+
     public static void 경로_응답됨(ExtractableResponse<Response> response, List<Long> expectedStationIds, int distance, int duration) {
         PathResponse pathResponse = response.as(PathResponse.class);
         assertThat(pathResponse.getDistance()).isEqualTo(distance);
@@ -79,5 +95,12 @@ public class PathSteps {
     public static void 경로_응답_요금포함(ExtractableResponse<Response> response, ArrayList<Long> expectedStationIds, int distance, int duration, int fare) {
         경로_응답됨(response, expectedStationIds, distance, duration);
         assertThat(response.as(PathResponse.class).getFare()).isEqualTo(fare);
+    }
+
+    public static void 경로_응답됨_도착시간포함(ExtractableResponse<Response> response, ArrayList<Long> expectedStationIds,
+                                     int distance, int duration, int fare, Long arrivalTime) {
+        경로_응답됨(response, expectedStationIds, distance, duration);
+        assertThat(response.as(PathResponse.class).getFare()).isEqualTo(fare);
+        assertThat(response.as(PathResponse.class).getArrivalTime()).isEqualTo(arrivalTime);
     }
 }

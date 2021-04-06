@@ -46,7 +46,7 @@ public class PathDocumentation extends Documentation {
         강남_역삼_경로 = new PathResponse(
                 Lists.newArrayList(new StationResponse(1L, "강남역", LocalDateTime.now(), LocalDateTime.now()),
                         new StationResponse(2L, "역삼역", LocalDateTime.now(), LocalDateTime.now())
-                ), 10, 10, 1250
+                ), 10, 10, 1250, 202104061830L
         );
         회원_생성_요청(EMAIL, PASSWORD, AGE);
         token = 로그인_되어_있음(EMAIL, PASSWORD);

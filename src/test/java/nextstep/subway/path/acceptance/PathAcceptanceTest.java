@@ -90,4 +90,15 @@ public class PathAcceptanceTest extends AcceptanceTest {
 
         경로_응답_요금포함(response, Lists.newArrayList(강남역.getId(), 교대역.getId(), 남부터미널역.getId()), 12, 20, 2250);
     }
+
+    @DisplayName("출발시간이 주어졌을 때, 도착시간이 가장 빠른 경로를 조회한다.")
+    @Test
+    void findFastestPath() {
+        // when
+        ExtractableResponse<Response> response = 도착시간이_가장_빠른_경로_조회를_요청(given(), token, 교대역.getId(), 양재역.getId(), 202104061800L);
+
+        // then
+        경로_응답됨_도착시간포함(response, Lists.newArrayList(교대역.getId(), 강남역.getId(), 양재역.getId()),
+                20, 20, 2350, 202104061830L);
+    }
 }
