@@ -20,8 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PathSteps {
     public static LineResponse 지하철_노선_등록되어_있음(String name, String color, StationResponse upStation, StationResponse downStation,
-                                              int distance, int duration, int lineFare) {
-        LineRequest lineRequest = new LineRequest(name, color, upStation.getId(), downStation.getId(), distance, duration, lineFare);
+                                              int distance, int duration, int lineFare, Long startTime, Long endTime, Long intervalTime) {
+        LineRequest lineRequest = new LineRequest(name, color, upStation.getId(), downStation.getId(), distance, duration, lineFare,
+                                                startTime, endTime, intervalTime);
         return 지하철_노선_생성_요청(lineRequest).as(LineResponse.class);
     }
 

@@ -17,16 +17,23 @@ public class Line extends BaseEntity {
     private String color;
     private int fare;
 
+    private Long startTime;
+    private Long endTime;
+    private Long intervalTime;
+
     @Embedded
     private Sections sections = new Sections();
 
     public Line() {
     }
 
-    public Line(String name, String color, int fare) {
+    public Line(String name, String color, int fare, Long startTime, Long endTime, Long intervalTime) {
         this.name = name;
         this.color = color;
         this.fare = fare;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.intervalTime = intervalTime;
     }
 
     public void update(Line line) {
