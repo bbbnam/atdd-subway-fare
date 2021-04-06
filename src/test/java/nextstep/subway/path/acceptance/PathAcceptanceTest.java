@@ -40,9 +40,9 @@ public class PathAcceptanceTest extends AcceptanceTest {
         양재역 = 지하철역_등록되어_있음("양재역").as(StationResponse.class);
         남부터미널역 = 지하철역_등록되어_있음("남부터미널역").as(StationResponse.class);
 
-        이호선 = 지하철_노선_등록되어_있음("2호선", "green", 교대역, 강남역, 10, 10);
-        신분당선 = 지하철_노선_등록되어_있음("신분당선", "green", 강남역, 양재역, 10, 10);
-        삼호선 = 지하철_노선_등록되어_있음("3호선", "green", 교대역, 남부터미널역, 2, 10);
+        이호선 = 지하철_노선_등록되어_있음("2호선", "green", 교대역, 강남역, 10, 10, 900);
+        신분당선 = 지하철_노선_등록되어_있음("신분당선", "green", 강남역, 양재역, 10, 10, 800);
+        삼호선 = 지하철_노선_등록되어_있음("3호선", "green", 교대역, 남부터미널역, 2, 10, 0);
 
         지하철_노선에_지하철역_등록_요청(삼호선, 남부터미널역, 양재역, 3, 10);
 
@@ -76,7 +76,7 @@ public class PathAcceptanceTest extends AcceptanceTest {
         // when
         ExtractableResponse<Response> response = 두_역의_최단_거리_경로_조회를_요청(given(), token, 강남역.getId(), 남부터미널역.getId());
 
-        경로_응답_요금포함(response, Lists.newArrayList(강남역.getId(), 교대역.getId(), 남부터미널역.getId()), 12, 20, 1150);
+        경로_응답_요금포함(response, Lists.newArrayList(강남역.getId(), 교대역.getId(), 남부터미널역.getId()), 12, 20, 1870);
     }
 
     @DisplayName("미로그인시 지하철 이용 요금을 조회한다. - 할인 미적용")
@@ -85,6 +85,6 @@ public class PathAcceptanceTest extends AcceptanceTest {
         // when
         ExtractableResponse<Response> response = 두_역의_최단_거리_경로_조회를_요청_노_로그인(given(), 강남역.getId(), 남부터미널역.getId());
 
-        경로_응답_요금포함(response, Lists.newArrayList(강남역.getId(), 교대역.getId(), 남부터미널역.getId()), 12, 20, 1350);
+        경로_응답_요금포함(response, Lists.newArrayList(강남역.getId(), 교대역.getId(), 남부터미널역.getId()), 12, 20, 2250);
     }
 }

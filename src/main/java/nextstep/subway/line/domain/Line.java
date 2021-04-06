@@ -23,9 +23,10 @@ public class Line extends BaseEntity {
     public Line() {
     }
 
-    public Line(String name, String color) {
+    public Line(String name, String color, int fare) {
         this.name = name;
         this.color = color;
+        this.fare = fare;
     }
 
     public void update(Line line) {
