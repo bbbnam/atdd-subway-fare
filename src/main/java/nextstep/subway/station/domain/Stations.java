@@ -12,4 +12,11 @@ public class Stations {
     public List<Station> getStations() {
         return stations;
     }
+
+    @Override
+    public String toString() {
+        return "Stations{" +
+                "stations=" + stations +
+                '}';
+    }
 }

@@ -8,10 +8,12 @@ import nextstep.subway.station.domain.Station;
 import nextstep.subway.station.domain.Stations;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
+import org.jgrapht.alg.shortestpath.KShortestPaths;
 import org.jgrapht.graph.WeightedMultigraph;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SubwayGraph {
     private WeightedMultigraph<Station, SubwayEdge> graph;
@@ -45,7 +47,16 @@ public class SubwayGraph {
         List<Section> sections = result.getEdgeList().stream()
                 .map(it -> it.getSection())
                 .collect(Collectors.toList());
-
+        System.out.println("sections11>>"+sections.toString());
         return new PathResult(new Stations(result.getVertexList()), new Sections(sections));
+    }
+
+    public List<Stations> findAllPaths(Station source, Station target) {
+        List<GraphPath> paths = new KShortestPaths(graph, 1000).getPaths(source, target);
+
+        return paths.stream()
+                .flatMap(g -> Stream.of(g.getVertexList()))
+                .map(Stations::new)
+                .collect(Collectors.toList());
     }
 }

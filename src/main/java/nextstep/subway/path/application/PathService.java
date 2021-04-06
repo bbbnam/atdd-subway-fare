@@ -1,6 +1,7 @@
 package nextstep.subway.path.application;
 
 import nextstep.subway.line.domain.PathType;
+import nextstep.subway.line.domain.Sections;
 import nextstep.subway.member.domain.LoginMember;
 import nextstep.subway.path.domain.Fare;
 import nextstep.subway.path.domain.PathResult;
@@ -12,8 +13,12 @@ import nextstep.subway.path.domain.policy.FarePolicy;
 import nextstep.subway.path.domain.policy.line.LinePolicyFactory;
 import nextstep.subway.path.dto.PathResponse;
 import nextstep.subway.station.application.StationService;
+import nextstep.subway.station.domain.Paths;
 import nextstep.subway.station.domain.Station;
+import nextstep.subway.station.domain.Stations;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PathService {
@@ -31,10 +36,19 @@ public class PathService {
         Station targetStation = stationService.findStationById(target);
         PathResult pathResult = subwayGraph.findPath(sourceStation, targetStation);
 
+        List<Stations> allPaths = null;
+        if ("ARRIVAL_TIME".equals(type.name())) {
+            allPaths = subwayGraph.findAllPaths(sourceStation, targetStation);
+            System.out.println("allpath>>"+allPaths.get(0).toString());
+        }
+
+        //Paths paths = new Paths(allPaths);
+        //Long arrivalTime = paths.calculateArrivalTime();
+        Long arrivalTime = 0L;
         Fare fare = new Fare();
         Policies policies = initPolicies(loginMember, pathResult);
         int calculatedFare = policies.calculate(fare.getFareValue());
-        Long arrivalTime = 202104061830L;
+
         return PathResponse.of(pathResult, calculatedFare, arrivalTime);
     }
 

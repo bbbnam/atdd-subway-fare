@@ -89,4 +89,16 @@ public class Section {
     public int getLineFare() {
         return line.getFare();
     }
+
+    @Override
+    public String toString() {
+        return "Section{" +
+                "id=" + id +
+                ", line=" + line +
+                ", upStation=" + upStation +
+                ", downStation=" + downStation +
+                ", distance=" + distance +
+                ", duration=" + duration +
+                '}';
+    }
 }

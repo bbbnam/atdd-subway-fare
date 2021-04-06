@@ -147,4 +147,11 @@ public class Sections {
                     .max(Integer::compare)
                     .orElse(0);
     }
+
+    @Override
+    public String toString() {
+        return "Sections{" +
+                "sections=" + sections +
+                '}';
+    }
 }

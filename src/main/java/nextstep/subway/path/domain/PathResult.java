@@ -9,10 +9,17 @@ import java.util.List;
 public class PathResult {
     private Sections sections;
     private Stations stations;
+    private Long arrivalTime;
 
     public PathResult(Stations stations, Sections sections) {
         this.stations = stations;
         this.sections = sections;
+    }
+
+    public PathResult(Stations stations, Sections sections, Long arrivalTime) {
+        this.stations = stations;
+        this.sections = sections;
+        this.arrivalTime = arrivalTime;
     }
 
     public List<Station> getStations() {
@@ -29,5 +36,9 @@ public class PathResult {
 
     public int getMaxLineFare() {
         return sections.getMaxFare();
+    }
+
+    public Long getArrivalTime() {
+        return arrivalTime;
     }
 }
